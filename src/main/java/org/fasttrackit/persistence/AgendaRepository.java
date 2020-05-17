@@ -25,7 +25,7 @@ public class AgendaRepository {
         }
     }
 
-    public void updateAgenda (UpdateAgendaRequest request) throws IOException, SQLException {
+    public void updateAgenda(long id, UpdateAgendaRequest request) throws IOException, SQLException {
 
         String sql = "UPDATE agenda SET first_name = ? WHERE first_name = ? ";
 
