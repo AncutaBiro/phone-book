@@ -13,7 +13,7 @@ import java.sql.SQLException;
  */
 public class App 
 {
-    public static void main( String[] args ) throws IOException, SQLException {
+    public static void main( String[] args ) throws IOException, SQLException, ClassNotFoundException {
 
 //        CreateAgendaRequest request = new CreateAgendaRequest();
 //        request.setFirstName("Daniel");

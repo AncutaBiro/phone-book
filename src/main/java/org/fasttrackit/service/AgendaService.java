@@ -13,22 +13,22 @@ public class AgendaService {
 
 private AgendaRepository agendaRepository = new AgendaRepository();
 
-public void createAgenda (CreateAgendaRequest request) throws IOException, SQLException {
+public void createAgenda (CreateAgendaRequest request) throws IOException, SQLException, ClassNotFoundException {
     System.out.println("Creating agenda: " + request);
     agendaRepository.createAgenda(request);
 }
 
-public void updateAgenda (long id, UpdateAgendaRequest request) throws IOException, SQLException {
+public void updateAgenda (long id, UpdateAgendaRequest request) throws IOException, SQLException, ClassNotFoundException {
     System.out.println("Updating agenda " + id + ":" + request);
     agendaRepository.updateAgenda(id, request);
 }
 
-public void deleteAgenda (long id) throws IOException, SQLException {
+public void deleteAgenda (long id) throws IOException, SQLException, ClassNotFoundException {
     System.out.println("Deleting agenda: " + id);
     agendaRepository.deleteAgenda(id);
 }
 
-public List<Agenda> getAgenda () throws IOException, SQLException {
+public List<Agenda> getAgenda () throws IOException, SQLException, ClassNotFoundException {
     System.out.println("Printing agenda: ");
     return agendaRepository.getAgenda();
 }

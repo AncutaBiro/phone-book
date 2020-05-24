@@ -10,7 +10,7 @@ import java.util.List;
 
 public class AgendaRepository {
 
-    public void createAgenda (CreateAgendaRequest request) throws IOException, SQLException {
+    public void createAgenda (CreateAgendaRequest request) throws IOException, SQLException, ClassNotFoundException {
 
         String sql = "INSERT INTO agenda (first_name, last_name, phone_number) VALUES (?,?,?)";
 
@@ -25,7 +25,7 @@ public class AgendaRepository {
         }
     }
 
-    public void updateAgenda(long id, UpdateAgendaRequest request) throws IOException, SQLException {
+    public void updateAgenda(long id, UpdateAgendaRequest request) throws IOException, SQLException, ClassNotFoundException {
 
         String sql = "UPDATE agenda SET first_name = ? WHERE first_name = ? ";
 
@@ -39,7 +39,7 @@ public class AgendaRepository {
         }
     }
 
-    public void deleteAgenda (long id) throws SQLException, IOException {
+    public void deleteAgenda (long id) throws SQLException, IOException, ClassNotFoundException {
 
         String sql = "DELETE FROM agenda WHERE id = ? ";
 
@@ -53,7 +53,7 @@ public class AgendaRepository {
 
     }
 
-    public List<Agenda> getAgenda () throws IOException, SQLException {
+    public List<Agenda> getAgenda () throws IOException, SQLException, ClassNotFoundException {
 
         String sql = "SELECT id, first_name, last_name, phone_number FROM agenda";
 
@@ -77,7 +77,7 @@ public class AgendaRepository {
       return agenda;
     }
 
-    public List<Agenda> getAgendaByLastName (UpdateAgendaRequest lastName) throws IOException, SQLException {
+    public List<Agenda> getAgendaByLastName (UpdateAgendaRequest lastName) throws IOException, SQLException, ClassNotFoundException {
 
         List<Agenda> agenda = new ArrayList<>();
 
