@@ -27,16 +27,29 @@ public class AgendaRepository {
 
     public void updateAgenda(long id, UpdateAgendaRequest request) throws IOException, SQLException, ClassNotFoundException {
 
-        String sql = "UPDATE agenda SET first_name = ? WHERE first_name = ? ";
+        String sql = "UPDATE agenda SET first_name = ? WHERE id = ? ";
 
         try (Connection connection = DatabaseConfiguration.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
             preparedStatement.setString(1, request.getFirstName());
-            preparedStatement.setString(2, request.getFirstName());
+            preparedStatement.setLong(2, id);
 
             preparedStatement.executeUpdate();
         }
+
+        //vreau sa setez parametrul de cautare lastName in loc de id.
+//        String sql = "UPDATE agenda SET first_name = ? WHERE last_name = ? ";
+//
+//        try (Connection connection = DatabaseConfiguration.getConnection();
+//             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+//
+//            preparedStatement.setString(1, request1.getFirstName());
+//            preparedStatement.setString(2, request2.getFirstName());
+//
+//            preparedStatement.executeUpdate();
+//        }
+
     }
 
     public void deleteAgenda (long id) throws SQLException, IOException, ClassNotFoundException {
@@ -77,7 +90,7 @@ public class AgendaRepository {
       return agenda;
     }
 
-    public List<Agenda> getAgendaByLastName (UpdateAgendaRequest lastName) throws IOException, SQLException, ClassNotFoundException {
+    public List<Agenda> getAgenda (UpdateAgendaRequest lastName) throws IOException, SQLException, ClassNotFoundException {
 
         List<Agenda> agenda = new ArrayList<>();
 

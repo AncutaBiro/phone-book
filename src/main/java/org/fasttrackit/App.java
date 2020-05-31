@@ -31,8 +31,8 @@ public class App
 
 //        System.out.println(repository.getAgenda());
 
-        request1.setLastName("Pop");
-        System.out.println(repository.getAgendaByLastName(request1));
+//        request1.setLastName("Pop");
+//        System.out.println(repository.getAgenda(request1));
 
     }
 }

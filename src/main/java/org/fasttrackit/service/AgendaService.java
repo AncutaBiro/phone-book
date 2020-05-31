@@ -19,7 +19,7 @@ public void createAgenda (CreateAgendaRequest request) throws IOException, SQLEx
 }
 
 public void updateAgenda (long id, UpdateAgendaRequest request) throws IOException, SQLException, ClassNotFoundException {
-    System.out.println("Updating agenda " + id + ":" + request);
+    System.out.println("Updating agenda : " + id + request);
     agendaRepository.updateAgenda(id, request);
 }
 
@@ -30,7 +30,12 @@ public void deleteAgenda (long id) throws IOException, SQLException, ClassNotFou
 
 public List<Agenda> getAgenda () throws IOException, SQLException, ClassNotFoundException {
     System.out.println("Printing agenda: ");
+
+//    if (lastName == null) {
     return agendaRepository.getAgenda();
+//    } else {
+//        return agendaRepository.getAgenda(lastName);
+//    }
 }
 
 }
