@@ -37,29 +37,47 @@ public class AgendaRepository {
 
             preparedStatement.executeUpdate();
         }
-
-        //vreau sa setez parametrul de cautare lastName in loc de id.
-//        String sql = "UPDATE agenda SET first_name = ? WHERE last_name = ? ";
-//
-//        try (Connection connection = DatabaseConfiguration.getConnection();
-//             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-//
-//            preparedStatement.setString(1, request1.getFirstName());
-//            preparedStatement.setString(2, request2.getFirstName());
-//
-//            preparedStatement.executeUpdate();
-//        }
-
     }
 
-    public void deleteAgenda (long id) throws SQLException, IOException, ClassNotFoundException {
+//    Daca vreau sa schimb paramentrul de cautare cum procedez mai departe?
+//    public void updateAgenda(String lastName, UpdateAgendaRequest request) throws IOException, SQLException, ClassNotFoundException {
+//
+//        String sql = "UPDATE agenda SET first_name = ? WHERE last_name = ? ";
+//
+//            try (Connection connection = DatabaseConfiguration.getConnection();
+//                 PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+//
+//                preparedStatement.setString(1, request.getFirstName());
+//                preparedStatement.setString(2, lastName);
+//
+//                preparedStatement.executeUpdate();
+//            }
+//        }
+
+
+    public void deleteAgenda (Long id1) throws SQLException, IOException, ClassNotFoundException {
 
         String sql = "DELETE FROM agenda WHERE id = ? ";
 
         try (Connection connection = DatabaseConfiguration.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
-            preparedStatement.setLong(1, id);
+            preparedStatement.setLong(1, id1);
+
+            preparedStatement.executeUpdate();
+        }
+
+    }
+
+    public void deleteAgenda (Long id1, Long id2) throws SQLException, IOException, ClassNotFoundException {
+
+        String sql = "DELETE FROM agenda WHERE id = ? AND id = ?";
+
+        try (Connection connection = DatabaseConfiguration.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setLong(1, id1);
+            preparedStatement.setLong(2, id2);
 
             preparedStatement.executeUpdate();
         }
@@ -90,7 +108,7 @@ public class AgendaRepository {
       return agenda;
     }
 
-    public List<Agenda> getAgenda (UpdateAgendaRequest lastName) throws IOException, SQLException, ClassNotFoundException {
+    public List<Agenda> getAgenda (String lastName) throws IOException, SQLException, ClassNotFoundException {
 
         List<Agenda> agenda = new ArrayList<>();
 
@@ -99,7 +117,7 @@ public class AgendaRepository {
         try (Connection connection = DatabaseConfiguration.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
-            preparedStatement.setString(1, lastName.getLastName());
+            preparedStatement.setString(1, lastName);
 
             ResultSet resultSet = preparedStatement.executeQuery();
 

@@ -35,8 +35,6 @@ public class AgendaServlet extends HttpServlet {
 
     }
 
-// daca vreau sa caut dupa lastName de ex in loc de id, cum as face???
-
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
@@ -54,10 +52,14 @@ public class AgendaServlet extends HttpServlet {
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String id = req.getParameter("id");
+        String id1 = req.getParameter("id");
+        String id2 = req.getParameter("id");
 
         try {
-            agendaService.deleteAgenda(Long.parseLong(id));
+            if(id2 == null) {
+            agendaService.deleteAgenda(Long.parseLong(id1));
+            } else {
+                agendaService.deleteAgenda(Long.parseLong(id1), Long.parseLong(id2));}
         } catch (SQLException | ClassNotFoundException e) {
             resp.sendError(500, "There was a error while processing your request" + e.getMessage());
         }
@@ -67,18 +69,22 @@ public class AgendaServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-//        String lastName = req.getParameter("lastName");
-//        cum se transform variabila de tip String din request in parametrul LastName din Clasa UpdateTaskRequest???
+        String lastName = req.getParameter("lastName");
 
         try {
-         List<Agenda> contacts = agendaService.getAgenda();
-
+                if (lastName == null) {
+         List<Agenda> contacts = agendaService.getAgenda(null);
          ObjectMapperConfiguration.OBJECT_MAPPER.
-                 writeValue(resp.getWriter(), contacts);
+                 writeValue(resp.getWriter(), contacts);}
+                else {
+                    List<Agenda> contacts = agendaService.getAgenda(lastName);
+                    ObjectMapperConfiguration.OBJECT_MAPPER.
+                            writeValue(resp.getWriter(), contacts);}
 
         } catch (SQLException | ClassNotFoundException e) {
             resp.sendError(500, "There was a error while processing your request" + e.getMessage());
         }
 
     }
+
 }
