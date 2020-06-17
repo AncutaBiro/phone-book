@@ -23,6 +23,7 @@ public class AgendaServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        addCorsHeaders(resp);
 
         CreateAgendaRequest request = ObjectMapperConfiguration.OBJECT_MAPPER
                 .readValue(req.getReader(), CreateAgendaRequest.class);
@@ -37,6 +38,8 @@ public class AgendaServlet extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        addCorsHeaders(resp);
+
         String id = req.getParameter("id");
 
         UpdateAgendaRequest request = ObjectMapperConfiguration.OBJECT_MAPPER
@@ -51,6 +54,7 @@ public class AgendaServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        addCorsHeaders(resp);
 
         String id1 = req.getParameter("id");
         String id2 = req.getParameter("id");
@@ -68,6 +72,7 @@ public class AgendaServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        addCorsHeaders(resp);
 
         String lastName = req.getParameter("lastName");
 
@@ -87,4 +92,15 @@ public class AgendaServlet extends HttpServlet {
 
     }
 
+    @Override
+    protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+             addCorsHeaders(resp);
+    }
+
+    private void addCorsHeaders (HttpServletResponse resp) {
+        resp.addHeader("Access-Control-Allow-Origin", "*");
+        resp.addHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE");
+        resp.addHeader("Access-Control-Allow-Headers", "content-type");
+
+    }
 }
