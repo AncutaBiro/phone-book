@@ -12,7 +12,7 @@ public class AgendaRepository {
 
     public void createAgenda (CreateAgendaRequest request) throws IOException, SQLException, ClassNotFoundException {
 
-        String sql = "INSERT INTO agenda (first_name, last_name, phone_number) VALUES (?,?,?)";
+        String sql = "INSERT INTO agenda (first_name, last_name, phone_number, email) VALUES (?,?,?,?)";
 
         try (Connection connection = DatabaseConfiguration.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -20,6 +20,7 @@ public class AgendaRepository {
             preparedStatement.setString(1, request.getFirstName());
             preparedStatement.setString(2, request.getLastName());
             preparedStatement.setString(3, request.getPhoneNumber());
+            preparedStatement.setString(4, request.getEmail());
 
             preparedStatement.executeUpdate();
         }
@@ -38,22 +39,6 @@ public class AgendaRepository {
             preparedStatement.executeUpdate();
         }
     }
-
-//    Daca vreau sa schimb paramentrul de cautare cum procedez mai departe?
-//    public void updateAgenda(String lastName, UpdateAgendaRequest request) throws IOException, SQLException, ClassNotFoundException {
-//
-//        String sql = "UPDATE agenda SET first_name = ? WHERE last_name = ? ";
-//
-//            try (Connection connection = DatabaseConfiguration.getConnection();
-//                 PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-//
-//                preparedStatement.setString(1, request.getFirstName());
-//                preparedStatement.setString(2, lastName);
-//
-//                preparedStatement.executeUpdate();
-//            }
-//        }
-
 
     public void deleteAgenda (Long id1) throws SQLException, IOException, ClassNotFoundException {
 
@@ -86,7 +71,7 @@ public class AgendaRepository {
 
     public List<Agenda> getAgenda () throws IOException, SQLException, ClassNotFoundException {
 
-        String sql = "SELECT id, first_name, last_name, phone_number FROM agenda";
+        String sql = "SELECT id, first_name, last_name, phone_number, email FROM agenda";
 
         List<Agenda> agenda = new ArrayList<>();
 
@@ -101,6 +86,7 @@ public class AgendaRepository {
                 contacts.setFirstName(resultSet.getString("first_name"));
                 contacts.setLastName(resultSet.getString("last_name"));
                 contacts.setPhoneNumber(resultSet.getString("phone_number"));
+                contacts.setEmail(resultSet.getString("email"));
 
                 agenda.add(contacts);
             }
@@ -112,7 +98,7 @@ public class AgendaRepository {
 
         List<Agenda> agenda = new ArrayList<>();
 
-        String sql = "SELECT id, first_name, last_name, phone_number FROM agenda WHERE last_name = ?";
+        String sql = "SELECT id, first_name, last_name, phone_number, email FROM agenda WHERE last_name = ?";
 
         try (Connection connection = DatabaseConfiguration.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -127,6 +113,7 @@ public class AgendaRepository {
                 contact.setFirstName(resultSet.getString("first_name"));
                 contact.setLastName(resultSet.getString("last_name"));
                 contact.setPhoneNumber(resultSet.getString("phone_number"));
+                contact.setEmail(resultSet.getString("email"));
 
                 agenda.add(contact);
             }

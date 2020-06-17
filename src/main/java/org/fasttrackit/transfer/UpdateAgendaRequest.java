@@ -5,6 +5,7 @@ public class UpdateAgendaRequest {
     private String firstName;
     private String lastName;
     private String phoneNumber;
+    private String email;
 
     public String getFirstName() {
         return firstName;
@@ -30,12 +31,21 @@ public class UpdateAgendaRequest {
         this.phoneNumber = phoneNumber;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     @Override
     public String toString() {
         return "UpdateAgendaRequest{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
+                ", email='" + email + '\'' +
                 '}';
     }
 }

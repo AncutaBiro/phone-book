@@ -6,6 +6,7 @@ public class Agenda {
     private String firstName;
     private String lastName;
     private String phoneNumber;
+    private String email;
 
     public long getId() {
         return id;
@@ -39,13 +40,22 @@ public class Agenda {
         this.phoneNumber = phoneNumber;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     @Override
     public String toString() {
         return "Agenda{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", phoneNumber=" + phoneNumber +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", email='" + email + '\'' +
                 '}';
     }
 }
