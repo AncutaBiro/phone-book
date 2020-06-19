@@ -99,7 +99,7 @@ public class AgendaServlet extends HttpServlet {
 
     private void addCorsHeaders (HttpServletResponse resp) {
         resp.addHeader("Access-Control-Allow-Origin", "*");
-        resp.addHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE");
+        resp.addHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
         resp.addHeader("Access-Control-Allow-Headers", "content-type");
 
     }
