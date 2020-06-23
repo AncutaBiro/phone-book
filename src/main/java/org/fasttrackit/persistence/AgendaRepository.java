@@ -28,13 +28,16 @@ public class AgendaRepository {
 
     public void updateAgenda(long id, UpdateAgendaRequest request) throws IOException, SQLException, ClassNotFoundException {
 
-        String sql = "UPDATE agenda SET first_name = ? WHERE id = ? ";
+        String sql = "UPDATE agenda SET first_name = ?, last_name = ?, phone_number = ?, email= ? WHERE id = ? ";
 
         try (Connection connection = DatabaseConfiguration.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
             preparedStatement.setString(1, request.getFirstName());
-            preparedStatement.setLong(2, id);
+            preparedStatement.setString(2, request.getLastName());
+            preparedStatement.setString(3, request.getPhoneNumber());
+            preparedStatement.setString(4, request.getEmail());
+            preparedStatement.setLong(5, id);
 
             preparedStatement.executeUpdate();
         }
@@ -56,7 +59,7 @@ public class AgendaRepository {
 
     public void deleteAgenda (Long id1, Long id2) throws SQLException, IOException, ClassNotFoundException {
 
-        String sql = "DELETE FROM agenda WHERE id = ? AND id = ?";
+        String sql = "DELETE FROM agenda WHERE id IN (?,?)";
 
         try (Connection connection = DatabaseConfiguration.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
