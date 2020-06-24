@@ -3,6 +3,7 @@ package org.fasttrackit.persistence;
 import org.fasttrackit.domain.Agenda;
 import org.fasttrackit.transfer.CreateAgendaRequest;
 import org.fasttrackit.transfer.UpdateAgendaRequest;
+
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,12 +11,12 @@ import java.util.List;
 
 public class AgendaRepository {
 
-    public void createAgenda (CreateAgendaRequest request) throws IOException, SQLException, ClassNotFoundException {
+    public void createAgenda(CreateAgendaRequest request) throws IOException, SQLException, ClassNotFoundException {
 
         String sql = "INSERT INTO agenda (first_name, last_name, phone_number, email) VALUES (?,?,?,?)";
 
         try (Connection connection = DatabaseConfiguration.getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
             preparedStatement.setString(1, request.getFirstName());
             preparedStatement.setString(2, request.getLastName());
@@ -43,7 +44,7 @@ public class AgendaRepository {
         }
     }
 
-    public void deleteAgenda (Long id1) throws SQLException, IOException, ClassNotFoundException {
+    public void deleteAgenda(Long id1) throws SQLException, IOException, ClassNotFoundException {
 
         String sql = "DELETE FROM agenda WHERE id = ? ";
 
@@ -57,29 +58,30 @@ public class AgendaRepository {
 
     }
 
-    public void deleteAgenda (Long id1, Long id2) throws SQLException, IOException, ClassNotFoundException {
+    List <Long> ids = new ArrayList<>();
 
-        String sql = "DELETE FROM agenda WHERE id IN (?,?)";
+    public void deleteAgenda(List <Long> ids) throws SQLException, IOException, ClassNotFoundException {
+
+        String sql = "DELETE FROM agenda WHERE id IN (?)";
 
         try (Connection connection = DatabaseConfiguration.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
-            preparedStatement.setLong(1, id1);
-            preparedStatement.setLong(2, id2);
+            preparedStatement.setArray(1, (Array) ids);
 
             preparedStatement.executeUpdate();
         }
 
     }
 
-    public List<Agenda> getAgenda () throws IOException, SQLException, ClassNotFoundException {
+    public List<Agenda> getAgenda() throws IOException, SQLException, ClassNotFoundException {
 
         String sql = "SELECT id, first_name, last_name, phone_number, email FROM agenda";
 
         List<Agenda> agenda = new ArrayList<>();
 
         try (Connection connection = DatabaseConfiguration.getConnection();
-        Statement statement = connection.createStatement()) {
+             Statement statement = connection.createStatement()) {
 
             ResultSet resultSet = statement.executeQuery(sql);
 
@@ -94,17 +96,17 @@ public class AgendaRepository {
                 agenda.add(contacts);
             }
         }
-      return agenda;
+        return agenda;
     }
 
-    public List<Agenda> getAgenda (String lastName) throws IOException, SQLException, ClassNotFoundException {
+    public List<Agenda> getAgenda(String lastName) throws IOException, SQLException, ClassNotFoundException {
 
         List<Agenda> agenda = new ArrayList<>();
 
         String sql = "SELECT id, first_name, last_name, phone_number, email FROM agenda WHERE last_name = ?";
 
         try (Connection connection = DatabaseConfiguration.getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
             preparedStatement.setString(1, lastName);
 

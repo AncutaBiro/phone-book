@@ -9,7 +9,7 @@ import java.util.Properties;
 
 public class DatabaseConfiguration {
 
-    public static Connection getConnection () throws SQLException, IOException, ClassNotFoundException {
+    public static Connection getConnection() throws SQLException, IOException, ClassNotFoundException {
 
         InputStream inputstream = DatabaseConfiguration.class.getClassLoader().getResourceAsStream("db.properties");
 

@@ -1,6 +1,5 @@
 package org.fasttrackit.web;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.fasttrackit.config.ObjectMapperConfiguration;
 import org.fasttrackit.domain.Agenda;
 import org.fasttrackit.service.AgendaService;
@@ -14,9 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 
-@WebServlet ("/agenda")
+@WebServlet("/agenda")
 public class AgendaServlet extends HttpServlet {
 
     private AgendaService agendaService = new AgendaService();
@@ -57,13 +57,13 @@ public class AgendaServlet extends HttpServlet {
         addCorsHeaders(resp);
 
         String id1 = req.getParameter("id");
-        String id2 = req.getParameter("id");
+//        String[] ids = req.getParameterValues("id");
 
         try {
-            if(id2 == null) {
+//            if(ids == null) {
             agendaService.deleteAgenda(Long.parseLong(id1));
-            } else {
-                agendaService.deleteAgenda(Long.parseLong(id1), Long.parseLong(id2));}
+//            } else {
+//                agendaService.deleteAgenda(Long.parseLong(Arrays.toString(ids));}
         } catch (SQLException | ClassNotFoundException e) {
             resp.sendError(500, "There was a error while processing your request" + e.getMessage());
         }
@@ -77,15 +77,9 @@ public class AgendaServlet extends HttpServlet {
         String lastName = req.getParameter("lastName");
 
         try {
-                if (lastName == null) {
-         List<Agenda> contacts = agendaService.getAgenda(null);
-         ObjectMapperConfiguration.OBJECT_MAPPER.
-                 writeValue(resp.getWriter(), contacts);}
-                else {
-                    List<Agenda> contacts = agendaService.getAgenda(lastName);
-                    ObjectMapperConfiguration.OBJECT_MAPPER.
-                            writeValue(resp.getWriter(), contacts);}
-
+            List<Agenda> contacts = agendaService.getAgenda(lastName);
+            ObjectMapperConfiguration.OBJECT_MAPPER.
+                    writeValue(resp.getWriter(), contacts);
         } catch (SQLException | ClassNotFoundException e) {
             resp.sendError(500, "There was a error while processing your request" + e.getMessage());
         }
@@ -94,10 +88,10 @@ public class AgendaServlet extends HttpServlet {
 
     @Override
     protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-             addCorsHeaders(resp);
+        addCorsHeaders(resp);
     }
 
-    private void addCorsHeaders (HttpServletResponse resp) {
+    private void addCorsHeaders(HttpServletResponse resp) {
         resp.addHeader("Access-Control-Allow-Origin", "*");
         resp.addHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
         resp.addHeader("Access-Control-Allow-Headers", "content-type");
