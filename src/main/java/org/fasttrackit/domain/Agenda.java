@@ -7,6 +7,7 @@ public class Agenda {
     private String lastName;
     private String phoneNumber;
     private String email;
+    private boolean favourite;
 
     public long getId() {
         return id;
@@ -48,6 +49,14 @@ public class Agenda {
         this.email = email;
     }
 
+    public boolean isFavourite() {
+        return favourite;
+    }
+
+    public void setFavourite(boolean favourite) {
+        this.favourite = favourite;
+    }
+
     @Override
     public String toString() {
         return "Agenda{" +
@@ -56,6 +65,7 @@ public class Agenda {
                 ", lastName='" + lastName + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", email='" + email + '\'' +
+                ", favourite=" + favourite +
                 '}';
     }
 }

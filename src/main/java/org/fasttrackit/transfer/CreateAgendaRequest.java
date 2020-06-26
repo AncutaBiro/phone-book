@@ -6,6 +6,7 @@ public class CreateAgendaRequest {
     private String lastName;
     private String phoneNumber;
     private String email;
+    private boolean favourite;
 
     public String getFirstName() {
         return firstName;
@@ -39,6 +40,14 @@ public class CreateAgendaRequest {
         this.email = email;
     }
 
+    public boolean isFavourite() {
+        return favourite;
+    }
+
+    public void setFavourite(boolean favourite) {
+        this.favourite = favourite;
+    }
+
     @Override
     public String toString() {
         return "CreateAgendaRequest{" +
@@ -46,6 +55,7 @@ public class CreateAgendaRequest {
                 ", lastName='" + lastName + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", email='" + email + '\'' +
+                ", favourite=" + favourite +
                 '}';
     }
 }

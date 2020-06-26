@@ -60,7 +60,7 @@ public class AgendaServlet extends HttpServlet {
 //        String[] ids = req.getParameterValues("id");
 
         try {
-//            if(ids == null) {
+//            if( ids == null) {
             agendaService.deleteAgenda(Long.parseLong(id1));
 //            } else {
 //                agendaService.deleteAgenda(Long.parseLong(Arrays.toString(ids));}

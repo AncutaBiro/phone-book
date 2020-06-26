@@ -13,7 +13,7 @@ public class AgendaRepository {
 
     public void createAgenda(CreateAgendaRequest request) throws IOException, SQLException, ClassNotFoundException {
 
-        String sql = "INSERT INTO agenda (first_name, last_name, phone_number, email) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO agenda (first_name, last_name, phone_number, email, favourite) VALUES (?,?,?,?,?)";
 
         try (Connection connection = DatabaseConfiguration.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -22,6 +22,7 @@ public class AgendaRepository {
             preparedStatement.setString(2, request.getLastName());
             preparedStatement.setString(3, request.getPhoneNumber());
             preparedStatement.setString(4, request.getEmail());
+            preparedStatement.setBoolean(5, request.isFavourite());
 
             preparedStatement.executeUpdate();
         }
@@ -29,7 +30,7 @@ public class AgendaRepository {
 
     public void updateAgenda(long id, UpdateAgendaRequest request) throws IOException, SQLException, ClassNotFoundException {
 
-        String sql = "UPDATE agenda SET first_name = ?, last_name = ?, phone_number = ?, email= ? WHERE id = ? ";
+        String sql = "UPDATE agenda SET first_name = ?, last_name = ?, phone_number = ?, email= ?, favourite = ? WHERE id = ? ";
 
         try (Connection connection = DatabaseConfiguration.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -38,7 +39,8 @@ public class AgendaRepository {
             preparedStatement.setString(2, request.getLastName());
             preparedStatement.setString(3, request.getPhoneNumber());
             preparedStatement.setString(4, request.getEmail());
-            preparedStatement.setLong(5, id);
+            preparedStatement.setBoolean(5, request.isFavourite());
+            preparedStatement.setLong(6, id);
 
             preparedStatement.executeUpdate();
         }
@@ -67,7 +69,7 @@ public class AgendaRepository {
         try (Connection connection = DatabaseConfiguration.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
-            preparedStatement.setArray(1, (Array) ids);
+            preparedStatement.setArray(1, (Array)ids);
 
             preparedStatement.executeUpdate();
         }
@@ -76,7 +78,7 @@ public class AgendaRepository {
 
     public List<Agenda> getAgenda() throws IOException, SQLException, ClassNotFoundException {
 
-        String sql = "SELECT id, first_name, last_name, phone_number, email FROM agenda";
+        String sql = "SELECT id, first_name, last_name, phone_number, email, favourite FROM agenda";
 
         List<Agenda> agenda = new ArrayList<>();
 
@@ -92,6 +94,7 @@ public class AgendaRepository {
                 contacts.setLastName(resultSet.getString("last_name"));
                 contacts.setPhoneNumber(resultSet.getString("phone_number"));
                 contacts.setEmail(resultSet.getString("email"));
+                contacts.setFavourite(resultSet.getBoolean("favourite"));
 
                 agenda.add(contacts);
             }
@@ -119,6 +122,7 @@ public class AgendaRepository {
                 contact.setLastName(resultSet.getString("last_name"));
                 contact.setPhoneNumber(resultSet.getString("phone_number"));
                 contact.setEmail(resultSet.getString("email"));
+                contact.setFavourite(resultSet.getBoolean("favourite"));
 
                 agenda.add(contact);
             }
