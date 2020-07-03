@@ -74,10 +74,10 @@ public class AgendaServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         addCorsHeaders(resp);
 
-        String lastName = req.getParameter("lastName");
+//        String id = req.getParameter("id");
 
         try {
-            List<Agenda> contacts = agendaService.getAgenda(lastName);
+            List<Agenda> contacts = agendaService.getAgenda();
             ObjectMapperConfiguration.OBJECT_MAPPER.
                     writeValue(resp.getWriter(), contacts);
         } catch (SQLException | ClassNotFoundException e) {
@@ -95,6 +95,5 @@ public class AgendaServlet extends HttpServlet {
         resp.addHeader("Access-Control-Allow-Origin", "*");
         resp.addHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
         resp.addHeader("Access-Control-Allow-Headers", "content-type");
-
     }
 }

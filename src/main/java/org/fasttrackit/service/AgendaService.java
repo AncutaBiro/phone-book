@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
+import static java.util.Objects.isNull;
+
 public class AgendaService {
 
     private AgendaRepository agendaRepository = new AgendaRepository();
@@ -18,7 +20,7 @@ public class AgendaService {
         agendaRepository.createAgenda(request);
     }
 
-    public void updateAgenda(long id, UpdateAgendaRequest request) throws IOException, SQLException, ClassNotFoundException {
+    public void updateAgenda(Long id, UpdateAgendaRequest request) throws IOException, SQLException, ClassNotFoundException {
         System.out.println("Updating agenda : " + id + request);
         agendaRepository.updateAgenda(id, request);
     }
@@ -33,14 +35,14 @@ public class AgendaService {
         agendaRepository.deleteAgenda(ids);
     }
 
-    public List<Agenda> getAgenda(String lastName) throws IOException, SQLException, ClassNotFoundException {
+    public List<Agenda> getAgenda() throws IOException, SQLException, ClassNotFoundException {
         System.out.println("Printing agenda: ");
-
-        if (lastName == null) {
+//
+//        if (id != null) {
+//            return agendaRepository.getAgenda(id);
+//        } else {
             return agendaRepository.getAgenda();
-        } else {
-            return agendaRepository.getAgenda(lastName);
-        }
+
     }
 
 }

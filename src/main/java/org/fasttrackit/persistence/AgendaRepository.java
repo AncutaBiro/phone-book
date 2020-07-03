@@ -46,6 +46,20 @@ public class AgendaRepository {
         }
     }
 
+//    public void updateAgenda(long id, UpdateAgendaRequest request) throws IOException, SQLException, ClassNotFoundException {
+//
+//        String sql = "UPDATE agenda SET favourite = ? WHERE id = ? ";
+//
+//        try (Connection connection = DatabaseConfiguration.getConnection();
+//             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+//
+//            preparedStatement.setBoolean(1, request.isFavourite());
+//            preparedStatement.setLong(2, id);
+//
+//            preparedStatement.executeUpdate();
+//        }
+//    }
+
     public void deleteAgenda(Long id1) throws SQLException, IOException, ClassNotFoundException {
 
         String sql = "DELETE FROM agenda WHERE id = ? ";
@@ -102,16 +116,16 @@ public class AgendaRepository {
         return agenda;
     }
 
-    public List<Agenda> getAgenda(String lastName) throws IOException, SQLException, ClassNotFoundException {
+    public List<Agenda> getAgenda(Long id) throws IOException, SQLException, ClassNotFoundException {
 
         List<Agenda> agenda = new ArrayList<>();
 
-        String sql = "SELECT id, first_name, last_name, phone_number, email FROM agenda WHERE last_name = ?";
+        String sql = "SELECT id, first_name, last_name, phone_number, email FROM agenda WHERE id = ?";
 
         try (Connection connection = DatabaseConfiguration.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
-            preparedStatement.setString(1, lastName);
+            preparedStatement.setLong(1, id);
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
