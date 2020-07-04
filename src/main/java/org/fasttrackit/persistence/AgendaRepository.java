@@ -2,6 +2,7 @@ package org.fasttrackit.persistence;
 
 import org.fasttrackit.domain.Agenda;
 import org.fasttrackit.transfer.CreateAgendaRequest;
+import org.fasttrackit.transfer.DeleteAgendaRequest;
 import org.fasttrackit.transfer.UpdateAgendaRequest;
 
 import java.io.IOException;
@@ -74,16 +75,14 @@ public class AgendaRepository {
 
     }
 
-    List <Long> ids = new ArrayList<>();
-
-    public void deleteAgenda(List <Long> ids) throws SQLException, IOException, ClassNotFoundException {
+    public void deleteAgenda(DeleteAgendaRequest request) throws SQLException, IOException, ClassNotFoundException {
 
         String sql = "DELETE FROM agenda WHERE id IN (?)";
 
         try (Connection connection = DatabaseConfiguration.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
-            preparedStatement.setArray(1, (Array)ids);
+//            preparedStatement.set(1, request);
 
             preparedStatement.executeUpdate();
         }
@@ -120,7 +119,7 @@ public class AgendaRepository {
 
         List<Agenda> agenda = new ArrayList<>();
 
-        String sql = "SELECT id, first_name, last_name, phone_number, email FROM agenda WHERE id = ?";
+        String sql = "SELECT id, first_name, last_name, phone_number, email, favourite FROM agenda WHERE id = ?";
 
         try (Connection connection = DatabaseConfiguration.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {

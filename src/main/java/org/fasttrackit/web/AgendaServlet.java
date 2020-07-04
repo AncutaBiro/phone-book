@@ -74,13 +74,19 @@ public class AgendaServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         addCorsHeaders(resp);
 
-//        String id = req.getParameter("id");
+        String id = req.getParameter("id");
 
         try {
-            List<Agenda> contacts = agendaService.getAgenda();
+            List<Agenda> contacts;
+            if (id == null) {
+                contacts = agendaService.getAgenda();
+            } else {
+                contacts = agendaService.getAgenda(Long.parseLong(id));
+            }
             ObjectMapperConfiguration.OBJECT_MAPPER.
                     writeValue(resp.getWriter(), contacts);
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException |
+                ClassNotFoundException e) {
             resp.sendError(500, "There was a error while processing your request" + e.getMessage());
         }
 
