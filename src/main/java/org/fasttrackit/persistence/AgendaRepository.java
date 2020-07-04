@@ -2,7 +2,7 @@ package org.fasttrackit.persistence;
 
 import org.fasttrackit.domain.Agenda;
 import org.fasttrackit.transfer.CreateAgendaRequest;
-import org.fasttrackit.transfer.DeleteAgendaRequest;
+//import org.fasttrackit.transfer.DeleteAgendaRequest;
 import org.fasttrackit.transfer.UpdateAgendaRequest;
 
 import java.io.IOException;
@@ -75,19 +75,30 @@ public class AgendaRepository {
 
     }
 
-    public void deleteAgenda(DeleteAgendaRequest request) throws SQLException, IOException, ClassNotFoundException {
-
-        String sql = "DELETE FROM agenda WHERE id IN (?)";
-
-        try (Connection connection = DatabaseConfiguration.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-
-//            preparedStatement.set(1, request);
-
-            preparedStatement.executeUpdate();
-        }
-
-    }
+//    public void deleteAgenda (DeleteAgendaRequest request) throws SQLException, IOException, ClassNotFoundException {
+//
+//        String sql = "DELETE FROM agenda WHERE id IN (?)";
+//
+//        try (Connection connection = DatabaseConfiguration.getConnection();
+//             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+//
+//            List<Agenda> ids = new ArrayList<>();
+//
+//            preparedStatement.setArray(1, request);
+//
+//            Array array = connection.createArrayOf("INTEGER", request)
+//
+//            ResultSet resultSet = preparedStatement.executeUpdate();
+//
+//        while (resultSet.next()) {
+//            DeleteAgendaRequest ids = new DeleteAgendaRequest();
+//            ids.setId(resultSet.getLong("id"));
+//            ids.add(ids);
+////            preparedStatement.executeUpdate();
+//        }
+//    }
+//
+//    }
 
     public List<Agenda> getAgenda() throws IOException, SQLException, ClassNotFoundException {
 

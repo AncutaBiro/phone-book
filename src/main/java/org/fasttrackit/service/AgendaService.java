@@ -30,10 +30,10 @@ public class AgendaService {
         agendaRepository.deleteAgenda(id1);
     }
 
-    public void deleteAgenda(List<Long> ids) throws IOException, SQLException, ClassNotFoundException {
-        System.out.println("Deleting agenda: " + ids);
-        agendaRepository.deleteAgenda(ids);
-    }
+//    public void deleteAgenda(List<Long> ids) throws IOException, SQLException, ClassNotFoundException {
+//        System.out.println("Deleting agenda: " + ids);
+//        agendaRepository.deleteAgenda(ids);
+//    }
 
     public List<Agenda> getAgenda() throws IOException, SQLException, ClassNotFoundException {
         System.out.println("Printing agenda: ");
