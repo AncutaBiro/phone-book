@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.List;
 
 @WebServlet("/agenda")
@@ -57,13 +56,9 @@ public class AgendaServlet extends HttpServlet {
         addCorsHeaders(resp);
 
         String id1 = req.getParameter("id");
-//        String[] ids = req.getParameterValues("id");
 
         try {
-//            if( ids == null) {
             agendaService.deleteAgenda(Long.parseLong(id1));
-//            } else {
-//                agendaService.deleteAgenda(Long.parseLong(Arrays.toString(ids));}
         } catch (SQLException | ClassNotFoundException e) {
             resp.sendError(500, "There was a error while processing your request" + e.getMessage());
         }

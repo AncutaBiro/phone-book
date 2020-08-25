@@ -9,8 +9,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-import static java.util.Objects.isNull;
-
 public class AgendaService {
 
     private AgendaRepository agendaRepository = new AgendaRepository();
@@ -29,11 +27,6 @@ public class AgendaService {
         System.out.println("Deleting agenda: " + id1);
         agendaRepository.deleteAgenda(id1);
     }
-
-//    public void deleteAgenda(List<Long> ids) throws IOException, SQLException, ClassNotFoundException {
-//        System.out.println("Deleting agenda: " + ids);
-//        agendaRepository.deleteAgenda(ids);
-//    }
 
     public List<Agenda> getAgenda() throws IOException, SQLException, ClassNotFoundException {
         System.out.println("Printing agenda: ");
